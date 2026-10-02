@@ -10,13 +10,12 @@
 
 **Version 1.0.0** · 2026-10-02 · 49.2 MB
 
-- [Direct download](https://dl.audion.dev/traffic-counter/1.0.0/Audion_Traffic_Counter_v1.0.0.zip) — unmetered, no rate limits
+- [Direct download](https://audion.dev/get/traffic-counter/1.0.0/Audion_Traffic_Counter_v1.0.0_Full.zip) — unmetered, no rate limits
 - [Project page](https://audion.dev/downloads/traffic-counter) — every version and how to install
-- [GitHub release](https://github.com/Tensionix/traffic-counter/releases/tag/v1.0.0)
 
 <p align="center"><img src="Docs/screenshot.png" alt="The program window" width="560"></p>
 
-`SHA-256: 4c10d0219003b3f99c0b84e846dcd8f1643d77743227195094b9f41a8adb20f4`
+`SHA-256: c533ed85f6f8bc91a994915fd98897dcf3dcf7c4f5037198af2bcaa382efefac`
 
 ---
 

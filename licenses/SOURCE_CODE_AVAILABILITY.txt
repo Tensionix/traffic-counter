@@ -1,0 +1,26 @@
+SOURCE CODE AND UPSTREAM AVAILABILITY
+================================================================================
+
+Project: Audion Traffic Counter (audion-traffic-counter)
+
+This file is generated from component profiles. It is an engineering
+record and does not replace review of the applicable license terms.
+
+BUNDLED COMPONENTS WITH SOURCE REFERENCES
+--------------------------------------------------------------------------------
+Component: Lucide
+Version/profile: 1.48.0
+Method: upstream
+version: 1.48.0
+url: https://github.com/lucide-icons/lucide
+
+Component: Simple Icons
+Version/profile: 16.32.0
+Method: upstream
+version: 16.32.0
+url: https://github.com/simple-icons/simple-icons
+
+
+OPTIONAL RUNTIME COMPONENTS
+--------------------------------------------------------------------------------
+No optional runtime source records registered.

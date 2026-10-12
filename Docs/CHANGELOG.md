@@ -2,6 +2,16 @@
 
 **Contents**
 
+- [1.8.1 — 2026-10-09](#181--2026-10-09)
+- [1.8.0 — 2026-10-09](#180--2026-10-09)
+- [1.7.0 — 2026-10-08](#170--2026-10-08)
+- [1.6.0 — 2026-10-08](#160--2026-10-08)
+- [1.5.1 — 2026-10-08](#151--2026-10-08)
+- [1.5.0 — 2026-10-08](#150--2026-10-08)
+- [1.4.0 — 2026-10-08](#140--2026-10-08)
+- [1.3.0 — 2026-10-03](#130--2026-10-03)
+- [1.2.0 — 2026-10-03](#120--2026-10-03)
+- [1.1.0 — 2026-10-02](#110--2026-10-02)
 - [1.0.0 — 2026-10-02](#100--2026-10-02)
 - [0.11.2 — 2026-10-02](#0112--2026-10-02)
 - [0.11.1 — 2026-10-02](#0111--2026-10-02)
@@ -16,6 +26,334 @@
 - [0.3.0 — 2026-10-02](#030--2026-10-02)
 - [0.2.0 — 2026-10-02](#020--2026-10-02)
 - [0.1.0 — 2026-10-01](#010--2026-10-01)
+
+## 1.8.1 — 2026-10-09
+
+Patch: an old NVIDIA card no longer gets an installation that cannot count.
+
+- The PyTorch with CUDA the program installs carries code for NVIDIA cards from the GTX 10
+  series up. An older card (the GTX 900 series and before) was given that build all the
+  same - there is an NVIDIA card, its driver is new enough - and the first count stopped
+  with "no kernel image is available". Now such a card is treated as a machine without an
+  NVIDIA card: PyTorch for the processor and DirectML, the count through DirectML. The
+  machine check reads the generation of the card (`nvidia-smi`, compute capability) and
+  says so; SETUP shows it as a row; the engine itself passes such a card over even when a
+  folder installed for another machine is carried to it.
+- The menu of `builder_main.cmd`: every line fits a console line; the fine points are in the
+  README and the guides.
+- Not checked on a card of that age: the rule was run with the generation of the card
+  assumed (`Check-Machine.ps1 -AssumeCapability 5.2`) and by tests of the rule itself.
+- RESULTS: the line of a run cut the name of the model of kinds short ("NVIDIA card,
+  TensorRT · cla"); its column is wide enough for both now. CAMERA, English: the hint of the
+  field of the oncoming movement did not fit the field ("do not coun"); it reads "ignored".
+- Quieter outlines: the outline of a button, a switch and an input field - the plain grey one and
+  the coloured ones (pressed, under the pointer, the green, amber and orange buttons) - stands
+  halfway between its former colour and the surface, in both themes. Cards, text and icons keep
+  their colours.
+- The screenshot of the window is made on free material: a frame of a video under CC BY 3.0,
+  with its credit on the picture and in the README. The window takes it itself: with
+  `AUDION_SHOT_ONLY` the one pass is in the language and the theme named by
+  `AUDION_SHOT_LANG` and `AUDION_SHOT_THEME`, and the language and the theme the user had
+  chosen are put back.
+
+## 1.8.0 — 2026-10-09
+
+Minor: the installation asks first, and brings the one thing Windows may lack.
+
+- **Nothing is downloaded without a question.** INSTALL WHAT IS NEEDED and the buttons of the
+  parts ask before they download: what comes for this machine, how many gigabytes (about
+  15 GB of disk on an RTX card, about 5 GB without an NVIDIA card), what goes into Windows,
+  and that without the engine the program does not count. A copy without its engine opens
+  SETUP by itself at the first start and asks it there; before, it only showed a notice. The
+  scenario `offer` of `--shots` presses the button and answers no.
+- **The Microsoft Visual C++ runtime, first.** PyTorch cannot start without the Microsoft
+  Visual C++ Redistributable (x64), and a freshly installed Windows may not have it. The
+  installation looks for it before anything else and installs it with winget when it is
+  missing (`install\Ensure-VCRedist.ps1`); Windows asks for the administrator's consent. It
+  is the one thing the program installs into Windows. SETUP says so when the runtime is
+  missing; when winget is not there either, it names the Microsoft download before anything
+  starts. `verify` checks it.
+- **The window is built without Python.** The translation table is checked by
+  `Engine\Check-Texts.ps1` (PowerShell) instead of a Python script: `build_app` needs the
+  .NET SDK and nothing else. The tests of the engine run where a Python is and are passed
+  over with a word where none is - before, a machine with neither the engine's Python nor
+  one of its own could not build the window.
+- Not checked: the installation by winget on a machine that lacks the runtime (the machines
+  of the workshop have it; the step was run with the runtime taken for missing and the
+  command printed, and winget knows the package).
+
+## 1.7.0 — 2026-10-08
+
+Minor: a field for every kind of data and for the reports.
+
+- The principle behind it: recordings and reports are not the main thing - they can be copied
+  again and the counts reproduced; the main things are the program, what it has learned (the
+  model of vehicle kinds, which comes with the program since 1.5.0) and its stability. So the
+  program does not depend on where the data lie: SETTINGS names each kind.
+- RECORDINGS, a new field: the folder the recordings lie in. The choice of files in the
+  RECORDINGS section opens there, and - the part that matters - a recording of the list that
+  is not where the list says is looked for under that folder and its subfolders, by its file
+  name and its fingerprint, when the folder is chosen and at every start of the window.
+  Recordings moved to another disk or copied anew are found again and keep their lines,
+  their counts and their manual counts. A name borne by several files is taken only with a
+  matching fingerprint, never on a guess.
+- REPORTS, a new field: the folder the reports are written into. The report buttons of
+  RESULTS open the choice of a folder there, and the last export sets the field as before.
+- With WORK FOLDER, PROJECT FILE and TRAINING DATA these are the five fields of the data.
+  The cards of SETTINGS stand in two columns - the fields of the data on the left - so the
+  page does not grow taller than the window; a path stands on a line of its own under its
+  buttons.
+- Checked by the window's own scenario: a list brought from another machine named its
+  recording on a disk that is not there; with the folder of the recordings named, it was
+  found two folders down and kept its lines; two files of one name without a fingerprint
+  were not taken. Not checked: the folder dialogs themselves.
+
+## 1.6.0 — 2026-10-08
+
+Minor: the work folder - the program can be kept free of everything about the user's
+recordings.
+
+- The list of recordings, the lines of every recording, the counts, the manual counts to
+  compare with, the journal and the throwaway files are the user's own material. They lay in
+  the folder of the program, and of them the cleanup before a publication removed the counts
+  and the list but left the lines and the manual counts - with the names of streets and the
+  numbers of sheets in them. SETTINGS has a card WORK FOLDER now: IN THE PROGRAM'S FOLDER
+  (the default - a fresh copy works at once, nothing changes for anyone) or IN THE USER'S
+  FOLDER. With a folder chosen, all of it is read and written there, in the same layout
+  (`config\recordings.json`, `config\cameras\`, `output\`, `reference\`, `logs\`,
+  `._runtime\`), and the folder of the program holds the program and its settings alone: it
+  can be copied to another machine, cleaned or published without carrying the lists, the
+  lines and the results along.
+- One place decides where the work folder is, on each side: `work_root` in the engine
+  (`engine\paths.py`) and `Paths.DataRoot` in the window; both read `"WorkFolder"` of
+  `config\settings.json`, which always stays with the program. Every command that reads the
+  list, the lines, the counts or the manual counts follows it (`recordings`, `frames`,
+  `report`, `count` without `--out`).
+- The folder is changed without a restart: lines drawn and not saved are written first, into
+  the folder they were drawn in; then the list, the lines and the results are read from the
+  new place. Refused while a count runs. Choosing a folder moves nothing - what lay in the
+  former place stays there, and the tooltip of the button says which four things to move by
+  hand to take the former work along. A work folder that cannot be reached (a disk that is
+  not connected) is said at the start of the window and in the card, and the list is empty;
+  nothing is written into the folder of the program instead.
+- ABOUT says where the work folder is when it lies apart; its buttons LINES, RESULTS and
+  JOURNALS open the folders of the work folder.
+- Checked on the workshop's own material moved out of the program: the list of nine
+  recordings read the same but for the folder of the lines; the report of the four counted
+  recordings the same line for line; the window changed the folder to an empty one, to one
+  with a list and back, and found everything as at the start. Not checked: the folder dialog
+  itself, and a disk that is not connected.
+
+## 1.5.1 — 2026-10-08
+
+Patch: two things that went wrong silently when recordings and training data were moved to
+other folders.
+
+- A report of a run counted before its recording was moved had no picture of the recording:
+  the run names the file by the path it was counted from. The report now finds the recording
+  through the list of recordings (it is there under the same id) and takes the frame from
+  where the file lies today. A recording that is in neither place is reported as before,
+  without the picture.
+- `teach --boost PREFIX N` draws the pictures whose names start with PREFIX more often, and a
+  picture of a set is named after the folder it was cut from. With the folder renamed, the
+  old PREFIX named nothing, and the teaching ran to its end and gave another model than the
+  one meant, without a word. A PREFIX that names no folder of `--train` is now refused
+  before the set is built (a set is never written over, so its name would have been spent),
+  and once more on the set itself; the `start` line of a teaching says how many pictures are
+  boosted (`"boosted"`).
+
+## 1.5.0 — 2026-10-08
+
+Minor: a car of the detector is no longer renamed a truck, and the default model of vehicle
+kinds comes with the program.
+
+- The rule "both" let the model of kinds rename a car of the detector when it was 90 % sure
+  of another kind. Looked at by eye on a camera that sees the road from a roof: where the
+  model was sure a detector's car was a bus it was right 21 times of 24 (route vans the
+  detector cannot tell from cars at that height); where it was sure it was a truck - 10 of
+  42, the rest dark and red cars seen from above, and as sure of the wrong ones as of the
+  right ones (0.90-0.97), so no threshold parts them. Cars are 96 % of such a flow: one
+  wrong rename in three hundred cars is enough to spoil the count of trucks. Since this
+  version a detector's car becomes a bus when the model is sure, and never a truck. What the
+  detector itself called a truck or a bus is the model's to name as before, a truck included.
+- Measured for the default model, former rule against the new one. The roof camera, counted
+  exactly: 62 cars called trucks against none, trucks about +40 % against about +9 %; buses
+  the same. City cameras of two days: trucks +8.7 % and -1.7 % against -5.5 % and -6.5 %.
+  Roadside cameras at ground level: no change. The camera of the reference recording, the two
+  near lines: trucks 50 and 31 against 49 and 31, where the pictures show 49 and 32. The
+  reference recording itself was counted again: every event is the same, the rule touches
+  only the names of the kinds.
+- The former rule is kept to repeat old numbers: `--car-to-truck` on `count`, `classify` and
+  `check-classes`. A run remembers the rule it was named by (`"car_to_truck"` in the
+  `classes` block of `summary.json`), and a mark of a person laid on it later in TRAINING
+  changes that vehicle only: the rest of the run is not named anew by another rule. A run
+  named before this version is taken as named by the former rule.
+- The file of the default model is part of the program: `system_core\kinds\classes-06.pt`,
+  6 MB, weights only - no picture of any camera is in it. `config\classes_default.json`
+  named a model that was not in the published folder, so a folder installed from the
+  skeleton named buses and trucks by the detector alone; now it counts with the model at
+  once. The owner's word on publishing it: "of course - that is the point". A model of the
+  same name in `models\classes` is the user's own and is taken first; TRAINING lists the
+  models of both folders; `doctor` says which model is the default (`"kinds"`), and
+  `builder_main.cmd verify` has a line for it. A cleanup leaves `system_core\kinds` in place.
+
+## 1.4.0 — 2026-10-08
+
+Minor: the report of a count for the people who use its numbers, and the model of vehicle
+kinds on by default.
+
+- The owner's word: "we still have to work on the reports: making them, exporting them. And
+  a BUTTON by which everything is exported (copied) somewhere. The staff understand only
+  DOCX and XLSX... The main thing is to make it handsome, clear, with accents." RESULTS has
+  a card REPORT: REPORT ON ALL RECORDINGS (the newest run of every counted recording) and
+  REPORT ON THIS RUN ask for a folder and write two files there, REPORTS FOLDER opens the
+  last one. The document (.docx): the figures first (recordings, vehicles, cars, buses,
+  trucks, how many recordings are to be checked), the overview, then every recording on a
+  page of its own - a frame with the counting lines and the names of the directions, the
+  table by direction, the total, and the comparison with a manual count when `reference\`
+  holds one. The sheet (.xlsx): the overview, the split by 15 minutes, the list of
+  recordings (what was counted, when, on what, what to check), the comparison.
+- The report speaks to a transport engineer, not to a programmer (the owner: "bring
+  everything to an ergonomic form for transport engineers, not geeks"). It is titled
+  "Интенсивность и состав транспортного потока"; beside every count stands the volume an hour
+  (a recording of 15 minutes multiplied by four), under every total the composition of the
+  flow in percent; a line is a "section", a recording is "processed"; the sheet by 15 minutes
+  gives the volume an hour of every interval. What its reader has no use for - the counting
+  model, the model of kinds, what it was computed on, the frames, the folder of the run - is
+  the last sheet of the workbook, "Служебное". No passenger-car equivalents: the norm their
+  coefficients come from is the reader's to name.
+- The report is the engine's: `main.py report --out DIR [--id ...] [--run ...]
+  [--formats xlsx docx md] [--lang ru|en] [--interval 15]`, so an agent or a night script
+  writes the same files the button does. Nothing is counted in it: the numbers are those of
+  `summary.json` and `events.csv`. Markdown is a third format for whoever converts it himself.
+- No library was added for .docx: `engine\docx.py` writes the few XML parts of the file
+  directly (headings, tables with fills, pictures, a footer with the page number), so an
+  installed folder writes reports without being installed again. `openpyxl` was pinned
+  already. Both files were opened by Word and Excel and read page by page.
+- A doubtful number is said to be one, in words and in colour, not delivered silently: a
+  recording read not to its end; the kinds named by the detector alone; and - new - a model
+  of kinds on a camera it does not know. The measure of the last: such a model renames many
+  of the detector's cars (a model taught on views from above called 20 % of the cars of a
+  roadside camera buses; a model that knows the camera renames 1-3 %). A run in which the
+  model renamed at least 20 and at least 5 % of the detector's cars has `"doubt": true` in
+  the `classes` block of `summary.json`; RESULTS says so in the line of the run, the report
+  marks the recording "check" and explains that the number of vehicles stands and their
+  division into kinds does not.
+- The owner's word on the model of kinds: "of course, we torment the video card precisely so
+  that it is on by default". `config\classes_default.json` names the default model; a count
+  started from the window takes it when nothing else is chosen (TRAINING: AUTO, the first
+  choice; DETECTOR is the former behaviour; a model by its name as before), and
+  `count --classes auto` takes it from the command line. The name is written down, not
+  guessed from the folder: `teach` puts a new model into `models\classes` before anyone has
+  checked it. When the named model is not installed, the kinds are the detector's and the
+  tooltip of AUTO and the report say so. The file of the model is not in the skeleton: it
+  was taught on a customer's recordings and is published only by the owner's word.
+- The window checks the two buttons by itself: `AUDION_SHOT_SCENARIO=report`.
+
+## 1.3.0 — 2026-10-03
+
+Minor: teaching a model of vehicle kinds for one's own cameras, from the program itself and
+together with an AI agent.
+
+- The owner's word: the program goes public, and those who find it useful should be able to
+  "run it at home with a video card with the help of Claude, as we did, and teach the
+  kinds for their own angles". The tools of the experiment that taught model 03 are now
+  commands of the engine: `harvest` (pictures of every vehicle of a recording, no lines,
+  a screen of several cameras by `--grid`), `sheets` (sheets of 48 numbered pictures),
+  `labels` (the letters written beside the sheets), `teach` (the set and the teaching,
+  `models\classes\<name>.pt`, never written over), `check-classes` (the detector, the model
+  and the rule "both" against labels the model was not taught on). The marks of TRAINING
+  (`review.csv` of a run) are labels as well.
+- `Docs\AI_AGENT_GUIDE_EN.md` and `Docs\AI_AGENT_GUIDE_RU.md`, a guide for any AI agent
+  (Claude Code, Codex, others) that works in the program's folder with its user: the rules,
+  the folder, the commands, placing lines by frames, counting and comparing, and teaching
+  the kinds step by step - the letters, what decides the result (pictures of the same kind
+  of camera, the boundary of the kinds of the user's sheets), and that an agent asks before
+  it looks at the pictures, because what it looks at goes to the service that runs it. It
+  lies in `Docs\` because the public build carries no `SKILL.md` (the owner's word). The
+  user guides have the chapter "Working with Claude and Codex", the readmes a paragraph,
+  the tooltip of MODEL OF KINDS names the guide.
+- Where the training data lie is a choice of SETTINGS, the card TRAINING DATA (the owner's
+  word): BESIDE THE RECORDINGS - a folder `classes` beside the videos, the default, so the
+  data travel with the recordings as the project file does - or IN THE USER'S FOLDER.
+  `harvest` and `teach` take it from there; `teach` keeps the set and a copy of the model in
+  `<training data>\taught\<name>\`, because `models\` goes with a cleanup of the program and
+  the training data must not. They are never in the program's folder unless chosen so
+  (`training\`, which the cleanup removes like `output\`).
+- CAMERA: the round ends of a line or a gate are shown only on the chosen one and on the one
+  under the pointer - on a placement that is only looked at they hid the vehicles under
+  them; the direction is a small triangle standing a few pixels off the middle of the line
+  instead of a stick with a head across the road (the owner's words). RESULTS say which
+  model of kinds named the kinds of a run, in the list of runs and over its column of the
+  comparison.
+- Checked: 89 engine tests (seven new, of the letters, labels, sets and the place of the
+  training data); the window's scenarios `camera` (with the pointer brought over a line) and
+  `training`; `check-classes` with
+  model 03 on the labelled check part of the experiment gives its table exactly; a minute of
+  the reference recording cut, laid on sheets, labelled, taught for two epochs and checked by
+  the commands on the laptop (DirectML for the detector, the processor for the teaching).
+
+## 1.2.0 — 2026-10-03
+
+Minor: the kinds of vehicles by a model of kinds, and the TRAINING section.
+
+- The owner's task: "only three kinds are needed: cars, trucks, buses". The detector counts
+  cars well and confuses buses with trucks; on the reference recording, by the line where the
+  vehicles drive away from the camera, buses -53 %, trucks +39 % against a count made by
+  looking at the pictures. A small model of kinds (MobileNetV3, taught on pictures of
+  counted vehicles) names the kind of every counted vehicle on its pictures; the rule
+  "both" keeps a car of the detector a car unless the model is 90 % sure of another kind.
+  On the second half of that recording (the first half was in the teaching, the second
+  was not) buses +4 %, trucks +6 %, cars 0 %; by the line where vehicles come towards the
+  camera trucks -3 %, buses 5 of 6. How the model was taught: `MEMORY.md`, "Классы по
+  вырезкам".
+- `count --classes NAME` (a file of `models\classes`) and `classify --run DIR`: the kinds of
+  a run named anew without counting the video again. `events.csv` keeps the detector's kind,
+  the model's kind and share and a person's mark beside the final one; `summary.json` gets a
+  block `classes`. A count without a model is as before, byte for byte.
+- TRAINING, a section of the window (the owner named it): the model of kinds for the count
+  (DETECTOR or a file of `models\classes`), and the pictures of the vehicles of a run that
+  the detector and the model disagree on or the model is not sure of - 192 of 3756 on the
+  reference recording. A button under a vehicle sets its kind; the run is named anew at
+  once and RESULTS show it. The marks are the examples of the next teaching, which is done
+  outside the program; a taught model comes as a new file of `models\classes`.
+- The route van with windows along its side is a bus: the owner's word, and the way the
+  people who counted by hand took it (with it the count by the pictures agreed with theirs
+  within one or two vehicles).
+- `models\classes` goes with the cleanup like the rest of `models\`: a model taught on the
+  customer's recordings is not published.
+- Checked: 82 engine tests (five new, of the kinds); the reference run named anew by the
+  engine gives the numbers of the experiment exactly; naming anew twice gives the same
+  `events.csv` byte for byte; one minute counted with `--classes` end to end; the window's
+  scenario `training` (a mark by the path of a button, the run named anew, the mark taken
+  back).
+
+## 1.1.0 — 2026-10-02
+
+Minor: a count can keep pictures of the vehicles it counted; and a count on DirectML with
+more than one zone no longer breaks.
+
+- `count --crops N` keeps up to N pictures of every counted vehicle beside the run
+  (`crops\`, `crops.csv`): the whole vehicle at its largest, cut by the box of the detector.
+  The reason is the owner's task of 02.10.2026 - only three kinds are needed, cars, trucks
+  and buses, and the detector confuses the last two (24 buses against 52 by hand on the near
+  line). The pictures are what the kind is named by, by the eye and then by a small
+  classifier taught on them; the detector itself is not touched. The count does not read
+  the pictures: one minute of the reference recording gave the same `events.csv` byte for
+  byte with and without the key. There is no switch in the window yet.
+- DirectML, the fallback of a machine without an NVIDIA card: a count with two zones failed
+  within seconds ("DmlCommandRecorder ... 80004005", shown as "'utf-8' codec can't decode
+  byte 0xcd" - the text of the error comes in the language of Windows). Each zone has its
+  own model, each model had its own lock, and two threads called the two models at once;
+  the provider does not take that. One lock is now shared by all the models of a process.
+  Found on the laptop with the Intel card on the folder installed anew from the skeleton:
+  four counts of four failed in two threads, two of two passed in one; after the change
+  three of three in two threads, the events the same as in one thread. TensorRT, CUDA and
+  OpenVINO are not touched by it.
+- Checked on the laptop, on DirectML: 77 engine tests (four new, of the choice of
+  pictures), `verify`, `check_queue` (counted 3, skipped 1, failed 2, every count on
+  `directml`, nine guard checks). Not checked: TensorRT and CUDA - the change does not
+  touch their code, and the reference recording was not counted on this version.
 
 ## 1.0.0 — 2026-10-02
 
@@ -212,7 +550,7 @@ Minor: the total number of vehicles of a recording.
   its JSON line.
 - The first verification on an NVIDIA card (RTX 5070, driver 591.86): installation, the
   queue and the guard checks on `cuda`, the reference recording against the manual count;
-  the `cuda` baseline is saved in `reference\mira-zaozernaya-02\`.
+  the `cuda` baseline is saved in `reference\<camera>\`.
 - The reference lines file: the ends of three lines are swapped so that the arrow of each
   shows its main flow (`P107` away from the camera, `N13` and `N9` to the right), and the
   near line `P107` is marked as a check line. The counts did not move.

@@ -8,14 +8,15 @@
   <a href="https://github.com/Tensionix/traffic-counter/blob/main/LICENSE"><img alt="License" src="https://img.shields.io/github/license/Tensionix/traffic-counter?style=flat-square&color=5fd08a&logo=apache&logoColor=white&cacheSeconds=3600"></a>
 </p>
 
-**Version 1.0.0** · 2026-10-02 · 49.2 MB
+**Version 1.8.1** · 2026-10-12 · 56.3 MB
 
-- [Direct download](https://audion.dev/get/traffic-counter/1.0.0/Audion_Traffic_Counter_v1.0.0_Full.zip) — unmetered, no rate limits
+- [Direct download](https://dl.audion.dev/traffic-counter/1.8.1/Audion_Traffic_Counter_v1.8.1_Full.zip) — unmetered, no rate limits
 - [Project page](https://audion.dev/downloads/traffic-counter) — every version and how to install
+- [GitHub release](https://github.com/Tensionix/traffic-counter/releases/tag/v1.8.1)
 
 <p align="center"><img src="Docs/screenshot.png" alt="The program window" width="560"></p>
 
-`SHA-256: c533ed85f6f8bc91a994915fd98897dcf3dcf7c4f5037198af2bcaa382efefac`
+`SHA-256: 80c7a97e7b32996279395749c98d5895add8d9e422c9bb068025c5ee2608b153`
 
 ---
 

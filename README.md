@@ -10,13 +10,12 @@
 
 **Version 1.9.0** · 2026-10-21 · 74.4 MB
 
-- [Direct download](https://dl.audion.dev/traffic-counter/1.9.0/Audion_Traffic_Counter_v1.9.0.zip) — unmetered, no rate limits
+- [Direct download](https://audion.dev/get/traffic-counter/1.9.0/Audion_Traffic_Counter_v1.9.0_Full.zip) — unmetered, no rate limits
 - [Project page](https://audion.dev/downloads/traffic-counter) — every version and how to install
-- [GitHub release](https://github.com/Tensionix/traffic-counter/releases/tag/v1.9.0)
 
 <p align="center"><img src="Docs/screenshot.png" alt="The program window" width="560"></p>
 
-`SHA-256: c3ae5db15eac5f088360fce4ab70551edb692c8008ae680d71fdc26545e9a6ac`
+`SHA-256: d90d29b7ab28ef4831c37bef21e350f56cba869d4133e7afdb66208e64ecf9ff`
 
 ---
 
@@ -69,9 +68,9 @@ cameras, tens and hundreds of files in a row.
 | Section | What it does |
 |---|---|
 | RECORDINGS | The list of videos: add files or a folder, mark what to count. The files stay where they are |
-| CAMERA | The video with lines, gates and zones over it; going through the recordings; FFplay with the lines |
+| CAMERA | The video with one-way and two-way lines, gates and zones over it (a zone may see through a detector of its own, e.g. for vehicles behind a barrier); going through the recordings; FFplay with the lines |
 | COUNT | The model (YOLO26N … YOLO26X), what to count on, how many recordings at once, the queue, a trial run, the count as it goes |
-| RESULTS | The history of runs, the table by movement and class with the total of vehicles, runs side by side, the check against a manual count, and the report of all recordings as Word and Excel files |
+| RESULTS | The history of runs, the table by movement and class with the total of vehicles, runs side by side, the check against a manual count, the report of all recordings as Word and Excel files, and sheets with the picture of every truck, bus, motorcycle or car per section |
 | TRAINING | The model of kinds (cars, trucks, buses): one comes with the program and is on from the start, your own can be taught for your cameras; and the pictures of disputed vehicles, whose kind is set by one button |
 | SETUP | The video cards of the machine and a button that installs exactly what it lacks |
 | SETTINGS | How the program itself works: the speed of the count (recordings at once, threads, priority) and where the project file with the lines of the recordings is kept |

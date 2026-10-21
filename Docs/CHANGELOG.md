@@ -2,6 +2,7 @@
 
 **Contents**
 
+- [1.9.0 — 2026-10-20](#190--2026-10-20)
 - [1.8.1 — 2026-10-09](#181--2026-10-09)
 - [1.8.0 — 2026-10-09](#180--2026-10-09)
 - [1.7.0 — 2026-10-08](#170--2026-10-08)
@@ -26,6 +27,49 @@
 - [0.3.0 — 2026-10-02](#030--2026-10-02)
 - [0.2.0 — 2026-10-02](#020--2026-10-02)
 - [0.1.0 — 2026-10-01](#010--2026-10-01)
+
+## 1.9.0 — 2026-10-20
+
+Vehicle sheets beside the report.
+
+- The first job of a customer came with a form that splits the flow into small and big buses,
+  light and heavy trucks, special vehicles, motorcycles and bicycles; the program tells cars,
+  buses, trucks and motorcycles apart. The owner's word: everything that is not a car goes out
+  as pictures stuck together by the kinds the program tells apart, and the specialists split
+  them at a glance. RESULTS, the card REPORT: switches TRUCKS, BUSES, CARS (trucks and buses on).
+  With a kind on, the report writes a folder of sheets beside its files: per recording, per
+  section and kind, 48 vehicles to a sheet, each with its number - 1 to the number in the
+  table - and the time it passed. The engine: `main.py report --sheets truck bus car`,
+  `engine\contact.py`.
+- The pictures are those the count keeps of every vehicle when it names the kinds by a model;
+  a run without them gets no sheets, and the window says which and why.
+- The first sheets at once showed what a table hides: a city bus among the trucks, a long truck
+  counted twice (its cab and its trailer).
+- A zone may see through a detector of its own (`"model"` of the zone in the lines file): a
+  detector taught to see vehicles on the opposite carriageway behind a barrier, where the
+  general one sees a roof in single frames only. It looks at its zone alone; every other line
+  keeps the numbers of the general detector. Taught detectors travel with the program in
+  `system_core\detectors`; the first is `yolo26s-barrier-01.pt`. On 90 s of each of four
+  cameras that it was not taught on: behind the barrier 76 vehicles against an eye count of
+  about 84 (the general detector: 28), no vehicle twice; the near side unchanged. In such a
+  zone a box lying mostly inside a larger one is dropped: a long truck behind the barrier was
+  its cab and its whole, counted twice.
+- Behind a barrier the picture of a car is its roof, and the model of kinds took roofs for buses:
+  on one section of the first job 171 "buses" in an hour, nearly all of them cars. In a zone
+  with a detector of its own a car of the detector now stays a car; the model of kinds still
+  names what the detector called a truck or a bus. A counted run is named anew by
+  `main.py classify` without counting it again (171 -> 40 on that section).
+- The same rule for a line marked so (`"keep_car"` of the line): the far carriageway behind a
+  barrier seen by the general detector (two sections of the first job: 124 -> 35 buses).
+- CAMERA: a line of both ways is a kind of its own - LINE, TWO-WAY, GATE - and has two arrows
+  on the frame, each with its name (the owner: "тип с двумя стрелками в каждые стороны - это
+  нагляднее для юзера"). A one-way line no longer shows the field of the oncoming; TWO-WAY
+  shows it as "Against the arrow" with a name to be renamed. The file is the same as before: a
+  line with both names. The picture of the report draws both arrows too.
+- Vehicle sheets of motorcycles (the switch MOTORCYCLES, on).
+- A count in which no vehicle crossed a line, counted with a model of kinds, stopped with "has no
+  events" instead of being a count of nothing (found on a dark stretch of the first job).
+- Tests: 116.
 
 ## 1.8.1 — 2026-10-09
 

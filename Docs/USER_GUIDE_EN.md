@@ -132,8 +132,12 @@ Take the **LINE** tool, press on the frame and drag the line across the road.
   towards the camera.
 - The two arrow buttons in the row of the line, on the right, turn the arrow round.
 - Type into **Movement** the name these vehicles will bear in the results.
-- **Oncoming** is usually empty. With a name in it the same line counts the oncoming flow
-  as well, as a number of its own.
+- A line is a **LINE** (one way, along the arrow) or **TWO-WAY** - buttons in the row of the
+  line. A two-way line has two arrows on the frame, and its row has the field **Against the
+  arrow**: under that name the line counts the oncoming flow as a number of its own. It is for
+  a road where the opposite flows are not divided and the camera stands between them: a
+  vehicle crosses the line in any lane, and its direction decides where it is written. Where a
+  barrier divides them, two one-way lines, each across its own carriageway, are surer.
 - The **CHECK LINE** button is for a line that counts a flow other lines count further on:
   the whole flow before a fork, for example, with a line on each ramp behind it. The numbers
   of such a line are shown in the results and left out of the TOTAL row - the same vehicles
@@ -243,6 +247,16 @@ The **REPORT** card at the top of the section writes the result into a folder yo
 - **REPORT ON ALL RECORDINGS** - on every counted recording, by the newest run of each;
 - **REPORT ON THIS RUN** - on one recording, by the run chosen in the list;
 - **REPORTS FOLDER** - opens the folder of the last report.
+
+The row **Vehicle sheets** has the switches **TRUCKS**, **BUSES**, **MOTORCYCLES**, **CARS**. A kind that is on goes
+out as pictures as well: beside the report files there is a folder "Vehicle sheets", a folder per
+recording in it, and in that sheets by section and kind, 48 vehicles to a sheet. Every picture has
+its number (from 1 to the number in the table) and the time it passed from the start of the
+recording. By the sheets a specialist splits the trucks into light and heavy ones, the buses into
+small and big ones, and finds the special vehicles - everything the program does not tell apart.
+Trucks and buses are on by default, cars are off: there are many of them. The pictures of the
+vehicles are kept by a count with a model of kinds; a recording counted without one gets no sheets,
+and the window says so.
 
 There are two files, both written for a transport engineer. **The Word document** begins
 with the main figures (how many recordings, vehicles, cars, buses, trucks) and an overview

@@ -1,7 +1,7 @@
 # Audion Build Licenses Scan Report
 
 - Project: **Audion Traffic Counter** (`audion-traffic-counter`)
-- Run: `20261021T001816Z_audion-traffic-counter_039b6663`
+- Run: `20261026T205725Z_audion-traffic-counter_b80a1011`
 - Scan root (from the project root): `.`
 - Output (from the project root): `licenses`
 - Status: **PASS**
@@ -37,7 +37,7 @@ No issues detected.
 | JetBrains Mono | `UNCHANGED` | 2.211 | 2.211 |
 | Lucide | `UNCHANGED` | 1.48.0 | 1.48.0 |
 | MicroCom.Runtime | `UNCHANGED` | 0.11.6 | 0.11.6 |
-| Microsoft.NETCore.App.Runtime.win-x64 | `VERSION_OR_ARTIFACT_CHANGED_LICENSE_SAME` | 10.0.12 | 10.0.13 |
+| Microsoft.NETCore.App.Runtime.win-x64 | `NEW_COMPONENT_APPROVED_PROFILE` | - | 10.0.14 |
 | Simple Icons | `UNCHANGED` | 16.32.0 | 16.32.0 |
 | SkiaSharp | `UNCHANGED` | 3.119.4 | 3.119.4 |
 | SkiaSharp.NativeAssets.Win32 | `UNCHANGED` | 3.119.4 | 3.119.4 |

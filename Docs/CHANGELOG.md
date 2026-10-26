@@ -2,6 +2,7 @@
 
 **Contents**
 
+- [1.10.0 — 2026-10-27](#1100--2026-10-27)
 - [1.9.0 — 2026-10-20](#190--2026-10-20)
 - [1.8.1 — 2026-10-09](#181--2026-10-09)
 - [1.8.0 — 2026-10-09](#180--2026-10-09)
@@ -27,6 +28,28 @@
 - [0.3.0 — 2026-10-02](#030--2026-10-02)
 - [0.2.0 — 2026-10-02](#020--2026-10-02)
 - [0.1.0 — 2026-10-01](#010--2026-10-01)
+
+## 1.10.0 — 2026-10-27
+
+Teaching the detector as commands of the engine; the night detector.
+
+- `main.py detector harvest | marks | frames | tiles | pack | check | eye | join | teach | exam |
+  ship` (`engine\detector_teaching.py`): the tools the first job was taught with, until now
+  scripts of the data folder. Self-teaching from the detector's own weak boxes (harvest, marks,
+  frames, tiles) where it sees the vehicles too weakly; marking by eye (pack, check, eye) where
+  it does not see them at all - the owner's word: «Нужно в служебную документацию и код
+  добавить такую vision добивку». Then the teaching (from the general detector or one taught
+  before), the exam - a real count of windows never taught on - and shipping into
+  `system_core\detectors` under a new name, never over a file. Each command was run on the
+  job's data; the exam repeats the number the scripts gave (17 on the night window of one
+  camera).
+- A night detector ships beside the barrier one: `system_core\detectors\yolo26s-night-01.pt`,
+  for evenings on unlit roads (a zone of the whole frame with this model). Taught on 200 night
+  frames of five cameras marked by eye and on the dusk tiles of the "ladder", going on from its
+  second step. On 90 s of night it never saw: the near side 17 of ~20, 9 of ~10, 8 of ~12
+  (the general detector: 10, 0, 2); at dusk it counts as the general one or a little more. The
+  far carriageway behind a barrier at night it still undercounts badly (0-5 of ~4-10).
+- Tests: 123 (7 for the teaching of the detector).
 
 ## 1.9.0 — 2026-10-20
 

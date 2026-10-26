@@ -9,6 +9,7 @@
 - [Placing the lines by frames](#placing-the-lines-by-frames)
 - [Counting and reading a run](#counting-and-reading-a-run)
 - [Teaching the kinds for the user's cameras](#teaching-the-kinds-for-the-users-cameras)
+- [Teaching the detector for a view it does not see](#teaching-the-detector-for-a-view-it-does-not-see)
 - [When something goes wrong](#when-something-goes-wrong)
 
 This file is for an AI agent that works in the folder of the program together with its user:
@@ -123,9 +124,14 @@ teach --name NAME --train DIR ... --val DIR ... [--epochs 25] [--boost PREFIX N]
 check-classes --classes NAME --val DIR ... [--car-to-truck]
                                         the detector, the model and the rule "both" against labels
 report --out DIR [--id ID ...] [--run RUN ...] [--formats xlsx docx md] [--lang ru|en]
+       [--sheets truck bus motorcycle car]
                                         the counted recordings as files people read: a Word document
                                         and an Excel sheet; without --id and --run - the newest run of
-                                        every recording of the list
+                                        every recording of the list; --sheets - numbered pictures of
+                                        every vehicle of those kinds, per section
+detector harvest | marks | frames | tiles | pack | check | eye | join | teach | exam | ship
+                                        teaching a detector for a view the general one does not see:
+                                        "Teaching the detector for a view it does not see"
 ```
 
 `--classes auto` takes the default model of kinds: the one `config\classes_default.json`
@@ -357,6 +363,76 @@ first teaching downloads the ImageNet weights (10 MB).
    that kind from the user's cameras, teach a new model under a new name, check again on the
    same folders. Stop when the check is within the target; more epochs do not help, more
    pictures of the right camera do.
+
+## Teaching the detector for a view it does not see
+
+The general detector (`yolo26s.pt`) misses whole flows on some views: the far carriageway
+behind a barrier, where a car is a roof in single frames, and an unlit road at night, where a
+vehicle is its lights. Two taught detectors come with the program in `system_core\detectors\`:
+`yolo26s-barrier-01.pt` (vehicles behind a barrier, by day) and `yolo26s-night-01.pt` (the
+near carriageway of an unlit road at night; the far one behind a barrier it still misses). A
+taught detector works only in the zone that names it - `"model": "yolo26s-barrier-01.pt"` of
+a zone in the camera file - and every other line keeps the numbers of the general detector.
+In such a zone a car of the detector stays a car (the model of kinds took roofs for buses), and
+the same holds for a line with `"keep_car": true`. Set the zone in the file; the window shows
+it in the row of the zone.
+
+When neither fits the user's view, a detector is taught for it. The user's word comes first:
+it takes hours of the GPU and, for marking by eye, the agent looks at many frames of the user's
+recordings (see "Rules that always hold"). The order:
+
+1. **The exam first.** Choose two or three windows of 90 s the failing view is in, count them by
+   eye (two narrow strips either side of the line, frame by frame) and with the general
+   detector (`detector exam --model yolo26s.pt`). These windows are never taught on: every
+   step below that takes frames gets them in `--skip`.
+2. **Self-teaching** - when the detector sees the vehicles, only too weakly to follow them:
+
+   ```text
+   main.py detector harvest --video REC --out weak\r1.csv --start S --end S --skip 2940-3030
+   main.py detector marks   --weak weak\r1.csv --out marks\r1.json
+   main.py detector frames  --video REC --marks marks\r1.json --out frames --name r1 --every 5
+   main.py detector tiles   --frames frames --out sets\self
+   ```
+
+   Its boxes at a low confidence are joined into tracks; a track that lasts and was sure once
+   is a vehicle in every frame of it, and a frame with a sure box outside every track is left
+   out. The frames are cut into 640x640 tiles at their own scale. It does not help where the
+   detector does not see a vehicle at all (a dark night): then mark by eye.
+3. **Marking by eye**:
+
+   ```text
+   main.py detector pack  --video REC --out label\r1 --start S --end S --count 20
+                          --models yolo26s.pt --skip 2940-3030
+   main.py detector check --pack label\r1 --frame fNNNNNN
+   main.py detector eye   --video REC --pack label\r1 --out sets\eye --name r1 --copies 8
+   ```
+
+   `pack` writes, for each frame, the road band brightened with a scale in frame pixels and the
+   numbered guesses of the detectors (`fNNNNNN.jpg`, `fNNNNNN.json`) and the same band clean.
+   The marker writes `fNNNNNN.marks.json`: `{"vehicles": [{"from": 2}, {"from": 4, "box":
+   [x1, y1, x2, y2]}, {"box": [...], "kind": "truck"}], "unsure": [[x, y]]}` - a guess kept, a
+   guess with its box corrected, a vehicle no guess has; a wrong guess is not listed; what
+   cannot be told goes into "unsure" and is painted over in its tile. `check` draws the marks
+   on the clean band: every vehicle has a box, every box sits on a vehicle. A vehicle seen
+   only by its lights: the box around the pair of lights plus a sixth of their width on each
+   side, about 0.7 of its width high for a car. Reflections on the road and on a barrier, beams
+   and lamps are not vehicles. `eye` cuts the tiles from the frames as they are - dark, as the
+   count sees them - and repeats them so a few hundred frames are not drowned by the rest.
+4. **Teach, examine, ship**:
+
+   ```text
+   main.py detector join  --out sets\eye --sets sets\self --every 2
+   main.py detector teach --set sets\eye --name view-01 --epochs 8 --runs runs
+   main.py detector exam  --video REC --camera config\cameras\ID.json
+                          --model runs\view-01\weights\best.pt --windows 2940-3030 --out exam\view-01
+   main.py detector ship  --weights runs\view-01\weights\best.pt --name yolo26s-view-01
+   ```
+
+   `teach --from` goes on from a detector taught before. The exam is a real count of the
+   windows of step 1 with the taught detector in `--zone` (every zone without it): it must
+   come nearer the eye count than the general detector, and the lines it must not move (the
+   near side, daylight) must stay. The numbers the teaching prints are not the result. `ship`
+   puts the weights into `system_core\detectors` under a new name and never over a file.
 
 ## When something goes wrong
 
